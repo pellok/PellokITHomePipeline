@@ -38,6 +38,15 @@ steps:
     zipAfterPublish: True
   displayName: 'dotnet publish $(buildConfiguration)'
 
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/PellokITHome/bin/Release/netcoreapp3.1/'
+    includeRootFolder: true
+    archiveType: 'zip'
+    archiveFile: '$(System.DefaultWorkingDirectory)/$(buildConfiguration).zip'
+    replaceExistingArchive: true
+  displayName: 'ArchiveFile $(buildConfiguration)'
+    
 - task: AzureResourceManagerTemplateDeployment@3
   inputs:
     deploymentScope: 'Resource Group'
@@ -51,3 +60,13 @@ steps:
     csmParametersFile: 'azuredeploy.parameters.prod.json'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
+  displayName: 'dotnet deploy $(buildConfiguration)'
+
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: '免費試用版(8e1f4e59-3bf5-436c-9310-9edd39e3d593)'
+    appType: 'webAppLinux'
+    appName: 'contosowebapppjzohlzgqaho4'
+    package: '$(System.DefaultWorkingDirectory)/$(buildConfiguration).zip'
+    runtimeStack: 'DOTNETCORE|3.1'
+    startUpCommand: 'dotnet PellokITHome.dll'
