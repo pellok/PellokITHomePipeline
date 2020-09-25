@@ -40,8 +40,8 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/PellokITHome/bin/Release/netcoreapp3.1/*'
-    includeRootFolder: true
+    rootFolderOrFile: '$(Build.ArtifactStagingDirectory)/bin/Release/netcoreapp3.1/'
+    includeRootFolder: False
     archiveType: 'zip'
     archiveFile: '$(System.DefaultWorkingDirectory)/$(buildConfiguration).zip'
     replaceExistingArchive: true
