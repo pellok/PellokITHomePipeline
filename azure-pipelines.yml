@@ -48,6 +48,6 @@ steps:
     location: 'East Asia'
     templateLocation: 'Linked artifact'
     csmFile: 'azuredeploy.json'
-    csmParametersFileLink: 'https://raw.githubusercontent.com/pellok/PellokITHomePipeline/master/azuredeploy.parameters.prod.json'
+    csmParametersFile: 'azuredeploy.parameters.prod.json'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
