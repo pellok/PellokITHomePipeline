@@ -40,7 +40,7 @@ steps:
 
 - task: ArchiveFiles@2
   inputs:
-    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/PellokITHome/bin/Release/netcoreapp3.1/'
+    rootFolderOrFile: '$(System.DefaultWorkingDirectory)/PellokITHome/bin/Release/netcoreapp3.1/*'
     includeRootFolder: true
     archiveType: 'zip'
     archiveFile: '$(System.DefaultWorkingDirectory)/$(buildConfiguration).zip'
@@ -60,7 +60,7 @@ steps:
     csmParametersFile: 'azuredeploy.parameters.prod.json'
     deploymentMode: 'Incremental'
     deploymentName: 'DeployPipelineTemplate'
-  displayName: 'dotnet deploy $(buildConfiguration)'
+  displayName: 'Azure Resource Manager'
 
 - task: AzureWebApp@1
   inputs:
@@ -70,3 +70,4 @@ steps:
     package: '$(System.DefaultWorkingDirectory)/$(buildConfiguration).zip'
     runtimeStack: 'DOTNETCORE|3.1'
     startUpCommand: 'dotnet PellokITHome.dll'
+  displayName: 'Azure WebApp deploy $(buildConfiguration)'
