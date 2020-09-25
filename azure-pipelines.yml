@@ -37,3 +37,17 @@ steps:
     arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
   displayName: 'dotnet publish $(buildConfiguration)'
+
+- task: AzureResourceManagerTemplateDeployment@3
+  inputs:
+    deploymentScope: 'Resource Group'
+    azureResourceManagerConnection: '免費試用版(8e1f4e59-3bf5-436c-9310-9edd39e3d593)'
+    subscriptionId: '8e1f4e59-3bf5-436c-9310-9edd39e3d593'
+    action: 'Create Or Update Resource Group'
+    resourceGroupName: 'PellokIThomePipelineRG'
+    location: 'East Asia'
+    templateLocation: 'Linked artifact'
+    csmFile: 'azuredeploy.json'
+    overrideParameters: ''
+    deploymentMode: 'Incremental'
+    deploymentName: 'DeployPipelineTemplate'
